@@ -6,7 +6,6 @@ import org.acme.controller.api.AddressDTO;
 import org.acme.mapper.AddressMapper;
 import org.acme.repository.AddressRepository;
 
-//TODO -> CHECK MAPPER
 @ApplicationScoped
 public class AddressService {
     @Inject
@@ -14,7 +13,7 @@ public class AddressService {
     @Inject
     AddressMapper addressMapper;
     public void persist(AddressDTO addressDTO) {
-        addressRepository.persist(addressMapper.convert(addressDTO));
+        addressRepository.persist(addressMapper.convertToModel(addressDTO));
     }
     public void deleteById(Long id) {
         addressRepository.deleteById(id);
