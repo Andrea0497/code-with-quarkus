@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "addresses")
 public class Address extends PanacheEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String type;
     private String street;
     private String streetNumber;

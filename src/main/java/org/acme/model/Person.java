@@ -19,9 +19,6 @@ import java.util.List;
 @Entity
 @Table(name = "people")
 public class Person extends PanacheEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
     private String lastName;
     private String fiscalCode;
