@@ -10,7 +10,7 @@ import org.acme.service.AddressService;
 
 import java.net.URI;
 
-//TODO - EVALUATE @CONSUMES AND @PRODUCES
+//TODO - VALUTARE @CONSUMES E @PRODUCES
 @Path("/Anagrafica")
 @Slf4j
 public class AddressResource {
@@ -18,18 +18,18 @@ public class AddressResource {
     AddressService addressService;
     @POST
     @Path("/{personId}/addresses")
+    //...(MediaType.APPLICATION_JSON) = ...("application/json")
     @Consumes(MediaType.APPLICATION_JSON)
-    // -> = @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public Response persist(@PathParam("personId") Long personId, AddressDTO addressDTO) {
         log.info("AddressResource -> persist({}, {})", personId, addressDTO);
         addressDTO.setPersonId(personId);
         addressService.persist(addressDTO);
         /*return Response.status(Response.Status.OK).
-                entity("Address added successfully!").
+                entity("Indirizzo salvato con successo!").
                 build();*/
         return Response.created(URI.create("/addresses/" + addressDTO.getId()))
-                .entity("Address added successfully!")
+                .entity("Indirizzo salvato con successo!")
                 .build();
     }
     @DELETE
@@ -41,7 +41,7 @@ public class AddressResource {
         addressService.deleteById(id);
         //return Response.noContent().build();
         return Response.status(Response.Status.OK).
-                entity("Address deleted successfully!").
+                entity("Indirizzo eliminato con successo!").
                 build();
     }
 }

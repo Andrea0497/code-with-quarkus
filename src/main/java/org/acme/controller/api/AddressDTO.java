@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//TODO - TO CHECK -> LOMBOK ANNOTATION
+//TODO - CHECK -> ANNOTAZIONI LOMBOK
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

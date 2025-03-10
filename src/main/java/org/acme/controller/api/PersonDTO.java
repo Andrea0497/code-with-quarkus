@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-//TODO - TO CHECK -> LOMBOK ANNOTATION
+//TODO - CHECK -> ANNOTAZIONI LOMBOK
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
