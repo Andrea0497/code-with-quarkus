@@ -22,19 +22,22 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<PersonDTO> findByString(String string) {
+        log.info("PersonResource -> findByString({})", string);
         return personService.findByString(string);
     }
     @GET
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public PersonDTO details(@PathParam("id") Long id) {
+    public PersonDTO findById(@PathParam("id") Long id) {
+        log.info("PersonResource -> findById({})", id);
         return personService.findById(id);
     }
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response persist(PersonDTO personDTO) {
+        log.info("PersonResource -> persist({})", personDTO);
         personService.persist(personDTO);
         return Response.created(URI.create("/person/" + personDTO.getId()))
                 .entity("Persona aggiunta con successo!")
@@ -45,6 +48,7 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteById(@PathParam("id") Long id) {
+        log.info("PersonResource -> deleteById({})", id);
         personService.deleteById(id);
         String message = "Persona eliminata con successo!";
         return Response.status(Response.Status.OK).
