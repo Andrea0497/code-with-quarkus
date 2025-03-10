@@ -8,7 +8,6 @@ import org.mapstruct.*;
 import java.util.List;
 
 @ApplicationScoped
-//@Mapper(componentModel = "cdi", uses = {AddressMapper.class})
 @Mapper(componentModel = "cdi")
 public interface PersonMapper {
     Person convertToModelFull(PersonDTO personDTO);
