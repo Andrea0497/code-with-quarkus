@@ -13,8 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//TODO - CHECK -> ENTITYGRAPH
-@NamedEntityGraph(name = "personFull", attributeNodes = {@NamedAttributeNode("addresses")})
+@NamedEntityGraph(name = "Person.withAddresses", attributeNodes = {@NamedAttributeNode("addresses")})
 @Entity
 @Table(name = "people")
 public class Person {
