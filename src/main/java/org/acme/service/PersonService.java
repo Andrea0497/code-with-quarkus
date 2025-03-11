@@ -19,12 +19,12 @@ public class PersonService {
     PersonMapper personMapper;
     public List<PersonDTO> findByString(String string) {
         String lowerCaseString = string.toLowerCase();
-        List<Person> listPeople = (List<Person>) personRepository.findAll();
+        List<Person> listPeople = personRepository.findAll().stream().toList();
         List<Person> listPeopleFound = new ArrayList<>();
         for(Person person:listPeople){
-            if((person.getName().toLowerCase().startsWith(lowerCaseString)) ||
-                    (person.getLastName().toLowerCase().startsWith(lowerCaseString)) ||
-                    (person.getLegalName().toLowerCase().startsWith(lowerCaseString))) {
+            if((person.getName() != null && person.getName().toLowerCase().startsWith(lowerCaseString)) ||
+                    (person.getLastName() != null && person.getLastName().toLowerCase().startsWith(lowerCaseString)) ||
+                    (person.getLegalName() != null && person.getLegalName().toLowerCase().startsWith(lowerCaseString))) {
                 listPeopleFound.add(person);
             }
         }
