@@ -23,7 +23,7 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation
-    public List<PersonDTO> findByString(String string) {
+    public List<PersonDTO> findByString(@QueryParam("string") String string) {
         log.info("PersonResource -> findByString({})", string);
         return personService.findByString(string);
     }
