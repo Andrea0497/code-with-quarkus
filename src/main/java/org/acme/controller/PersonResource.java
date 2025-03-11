@@ -50,9 +50,9 @@ public class PersonResource {
     public Response deleteById(@PathParam("id") Long id) {
         log.info("PersonResource -> deleteById({})", id);
         personService.deleteById(id);
-        String message = "Persona eliminata con successo!";
+        String message = "Persona cancellata con successo!";
         return Response.status(Response.Status.OK).
-                entity("Persona eliminata con successo!").
+                entity("Persona cancellata con successo!").
                 build();
     }
 }
