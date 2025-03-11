@@ -2,6 +2,7 @@ package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.acme.controller.api.PersonDTO;
 import org.acme.mapper.PersonMapper;
 import org.acme.model.Person;
@@ -33,12 +34,14 @@ public class PersonService {
     public PersonDTO findById(Long id) {
         return personMapper.convertToDTOFull(personRepository.findByIdWithAddresses(id).orElseThrow());
     }
+    @Transactional
     public void persist(PersonDTO personDTO){
         if(personDTO.getLegalName()!=null){
             personDTO.setLegalPerson(true);
         }
         personRepository.persist(personMapper.convertToModelFull(personDTO));
     }
+    @Transactional
     public void deleteById(Long id){
         personRepository.deleteById(id);
     }
