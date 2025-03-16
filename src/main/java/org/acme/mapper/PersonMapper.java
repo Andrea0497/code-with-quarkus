@@ -8,13 +8,14 @@ import org.mapstruct.*;
 import java.util.List;
 
 @ApplicationScoped
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "cdi", uses = AddressMapper.class)
 public interface PersonMapper {
     Person convertToModelFull(PersonDTO personDTO);
+    @Mapping(source = "addresses", target = "addressesDTO")
     PersonDTO convertToDTOFull(Person person);
-    @Named("light")
-    @Mappings({@Mapping(target = "addresses", ignore = true)})
-    PersonDTO convertToDTOLight(Person person);
-    @IterableMapping(qualifiedByName = "light")
-    List<PersonDTO> convertToDTOLight(List<Person> model);
+    @Named("Without.addressDTO")
+    @Mapping(target = "addressesDTO", ignore = true)
+    PersonDTO convertToDTO(Person person);
+    @IterableMapping(qualifiedByName = "Without.addressDTO")
+    List<PersonDTO> convertToDTO(List<Person> model);
 }

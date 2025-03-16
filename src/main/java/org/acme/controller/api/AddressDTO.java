@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//TODO - CHECK -> ANNOTAZIONI LOMBOK
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,7 +12,7 @@ public class AddressDTO {
     private String type;
     private String street;
     private String streetNumber;
-    private int postalCode;
+    private String postalCode;
     private String city;
     private Long personId;
 }

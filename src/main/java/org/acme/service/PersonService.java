@@ -10,6 +10,7 @@ import org.acme.repository.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class PersonService {
@@ -21,25 +22,23 @@ public class PersonService {
         String lowerCaseString = string.toLowerCase();
         List<Person> listPeople = personRepository.findAll().stream().toList();
         List<Person> listPeopleFound = new ArrayList<>();
-        for(Person person:listPeople){
+        for(Person person : listPeople){
             if((person.getName() != null && person.getName().toLowerCase().startsWith(lowerCaseString)) ||
                     (person.getLastName() != null && person.getLastName().toLowerCase().startsWith(lowerCaseString)) ||
                     (person.getLegalName() != null && person.getLegalName().toLowerCase().startsWith(lowerCaseString))) {
                 listPeopleFound.add(person);
             }
         }
-        return personMapper.convertToDTOLight(listPeopleFound);
+        return personMapper.convertToDTO(listPeopleFound);
     }
-    //TODO - GESTIRE .orElseThrow()
     public PersonDTO findById(Long id) {
-        return personMapper.convertToDTOFull(personRepository.findByIdWithAddresses(id).orElseThrow());
+        Person person = personRepository.findByIdWithAddresses(id).orElseThrow();
+        return personMapper.convertToDTOFull(person);
     }
     @Transactional
     public void persist(PersonDTO personDTO){
-        if(personDTO.getLegalName()!=null){
-            personDTO.setLegalPerson(true);
-        }
-        personRepository.persist(personMapper.convertToModelFull(personDTO));
+        Person person = personMapper.convertToModelFull(personDTO);
+        personRepository.persist(person);
     }
     @Transactional
     public void deleteById(Long id){

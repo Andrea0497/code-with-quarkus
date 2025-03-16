@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-//TODO - CHECK -> ANNOTAZIONI LOMBOK
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,5 +17,5 @@ public class PersonDTO {
     private String legalName;
     private String vatNumber;
     private boolean legalPerson;
-    private List<AddressDTO> addresses;
+    private List<AddressDTO> addressesDTO;
 }

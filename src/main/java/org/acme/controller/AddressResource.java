@@ -7,38 +7,24 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.controller.api.AddressDTO;
 import org.acme.service.AddressService;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
-import java.net.URI;
-
-//TODO - VALUTARE @CONSUMES E @PRODUCES
-@Path("/Anagrafica")
+@Path("/Anagrafica/Address")
+@Produces(MediaType.APPLICATION_JSON)
 @Slf4j
 public class AddressResource {
     @Inject
     AddressService addressService;
     @POST
-    @Path("/{personId}/addresses")
-    //...(MediaType.APPLICATION_JSON) = ...("application/json")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation
-    public Response persist(@PathParam("personId") Long personId, AddressDTO addressDTO) {
-        log.info("AddressResource -> persist({}, {})", personId, addressDTO);
-        addressDTO.setPersonId(personId);
+    public Response persist(AddressDTO addressDTO) {
+        log.info("AddressResource -> persist({})", addressDTO);
         addressService.persist(addressDTO);
-        /*return Response.status(Response.Status.OK).
+        return Response.status(Response.Status.OK).
                 entity("Indirizzo salvato con successo!").
-                build();*/
-        return Response.created(URI.create("/addresses/" + addressDTO.getId()))
-                .entity("Indirizzo salvato con successo!")
-                .build();
+                build();
     }
     @DELETE
-    @Path("/addresses/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation
+    @Path("/{id}")
     public Response deleteById(@PathParam("id") Long id) {
         log.info("AddressResource -> deleteById({})", id);
         addressService.deleteById(id);

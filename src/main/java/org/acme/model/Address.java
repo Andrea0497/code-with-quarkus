@@ -2,15 +2,12 @@ package org.acme.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//TODO - CHECK -> ANNOTAZIONI LOMBOK(righe 10->13)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "addresses")
 public class Address {
@@ -20,7 +17,9 @@ public class Address {
     private String type;
     private String street;
     private String streetNumber;
-    private int postalCode;
+    private String postalCode;
     private String city;
-    private Long personId;
+    @ManyToOne
+    @JoinColumn(name = "personId", nullable = false)
+    private Person person;
 }
