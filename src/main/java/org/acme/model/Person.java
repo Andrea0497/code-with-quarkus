@@ -1,19 +1,21 @@
 package org.acme.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Person extends PanacheEntityBase {
-
+//TODO -> LOMBOK ????
+@Data
+@NoArgsConstructor
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String name;
-    public int age;
-
+    private String name;
+    private int age;
 }
