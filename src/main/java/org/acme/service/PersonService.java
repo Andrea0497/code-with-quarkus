@@ -4,6 +4,7 @@ import io.quarkus.runtime.util.StringUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.acme.mapper.AddressMapper;
 import org.acme.mapper.PersonMapper;
 import org.acme.model.Person;
 import org.acme.repository.PersonRepository;
@@ -17,8 +18,8 @@ public class PersonService {
     PersonRepository personRepository;
 
     public List<PersonDTO> listAll() {
-        List<Person> people = personRepository.listAll();
-        return PersonMapper.INSTANCE.toDTO(people);
+        List<Person> personList = personRepository.listAll();
+        return personList.stream().map(PersonMapper.INSTANCE::toDTOLight).toList();
     }
 
     public PersonDTO findById(Long id) {
@@ -34,25 +35,31 @@ public class PersonService {
         return personDTO;
     }
 
-    //TODO -> EVALUATE PATH-PRAM "id"
+    //TODO -> EVALUATE field check
     @Transactional
     public PersonDTO update(Long id, PersonDTO personDTO) {
-        Person existingPerson = personRepository.findById(id);
-        if(existingPerson != null) {
+        Person person = personRepository.findById(id);
+        if(person != null) {
             if(!StringUtil.isNullOrEmpty(personDTO.getName())) {
-                existingPerson.setName(personDTO.getName());
+                person.setName(personDTO.getName());
             } else {
-                existingPerson.setName(existingPerson.getName());
-                personDTO.setName(existingPerson.getName());
+                person.setName(person.getName());
+                personDTO.setName(person.getName());
             }
-            if(personDTO.getAge() != 0) {
-                existingPerson.setAge(personDTO.getAge());
+            if(personDTO.getAge() != null) {
+                person.setAge(personDTO.getAge());
             } else {
-                existingPerson.setAge(existingPerson.getAge());
-                personDTO.setAge(existingPerson.getAge());
+                person.setAge(person.getAge());
+                personDTO.setAge(person.getAge());
             }
-            personRepository.persist(existingPerson);
-            personDTO.setId(existingPerson.getId());
+            if(personDTO.getAddressList() != null && !personDTO.getAddressList().isEmpty()) {
+                person.setAddressList(AddressMapper.INSTANCE.toEntity(personDTO.getAddressList()));
+            } else {
+                person.setAddressList(person.getAddressList());
+                personDTO.setAddressList(AddressMapper.INSTANCE.toDTO(person.getAddressList()));
+            }
+            personRepository.persist(person);
+            personDTO.setId(person.getId());
             return personDTO;
         }
         return null;

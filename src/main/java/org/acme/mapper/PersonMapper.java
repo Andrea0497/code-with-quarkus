@@ -3,6 +3,7 @@ package org.acme.mapper;
 import org.acme.model.Person;
 import org.acme.rest.dto.PersonDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -11,7 +12,9 @@ import java.util.List;
 public interface PersonMapper {
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
-    PersonDTO toDTO(Person person);
-    List<PersonDTO> toDTO(List<Person> people);
     Person toEntity(PersonDTO personDTO);
+    PersonDTO toDTO(Person person);
+
+    @Mapping(target = "addressList", ignore = true)
+    PersonDTO toDTOLight(Person person);
 }

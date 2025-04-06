@@ -34,8 +34,8 @@ public class PersonResource {
 
     @POST
     public Response persist(PersonDTO personDTO) {
-        PersonDTO newPersonDTO = personService.persist(personDTO);
-        return Response.status(Response.Status.CREATED).entity(newPersonDTO).build();
+        PersonDTO persistedPersonDTO = personService.persist(personDTO);
+        return Response.status(Response.Status.CREATED).entity(persistedPersonDTO).build();
     }
 
     @PUT

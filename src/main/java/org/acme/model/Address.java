@@ -4,21 +4,21 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 //TODO -> EVALUATE LOMBOK ????
 @Data
 @NoArgsConstructor
-public class Person {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Integer age;
+    private String type;
+    private String street;
+    private Long streetNumber;
+    private String city;
 
-    //TODO -> EVALUATE CASCADE
-    @OneToMany(mappedBy = "person")
-    private List<Address> addressList;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 }
