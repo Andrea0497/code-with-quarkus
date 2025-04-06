@@ -38,6 +38,7 @@ public class AddressService {
         address.setPerson(person);
         addressRepository.persist(address);
         addressDTO.setId(address.getId());
+        addressDTO.setPersonId(personId);
         return addressDTO;
     }
 
@@ -72,6 +73,7 @@ public class AddressService {
             }
             addressRepository.persist(address);
             addressDTO.setId(address.getId());
+            addressDTO.setPersonId(address.getPerson().getId());
             return addressDTO;
         }
         return null;

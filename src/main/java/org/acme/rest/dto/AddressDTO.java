@@ -12,6 +12,5 @@ public class AddressDTO {
     private String street;
     private Long streetNumber;
     private String city;
-    //TODO -> EVALUATE TO SHOW ONLY personId
-    private PersonDTO personDTO;
+    private Long personId;
 }

@@ -12,8 +12,12 @@ import java.util.List;
 public interface AddressMapper {
     AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
+    @Mapping(source = "personId", target = "person.id")
     Address toEntity(AddressDTO addressDTO);
+
+    @Mapping(source = "person.id", target = "personId")
     AddressDTO toDTO(Address address);
+
     List<Address> toEntity(List<AddressDTO> addressDTOList);
     List<AddressDTO> toDTO(List<Address> addressList);
 }

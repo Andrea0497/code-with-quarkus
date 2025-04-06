@@ -18,7 +18,6 @@ public class Person {
     private String name;
     private Integer age;
 
-    //TODO -> EVALUATE CASCADE
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = CascadeType.REMOVE)
     private List<Address> addressList;
 }
